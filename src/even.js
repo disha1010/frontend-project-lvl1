@@ -21,8 +21,8 @@ const even = () => {
     const number = Math.floor(Math.random() * 10 + 1);
     console.log(`Question: ${number}`);
     const answer = readlineSync.question('Your answer: ');
-    const realAnswer = number % 2 === 0 ? true : false;
-    const yourAnswer = answer === 'yes' ? true : answer === 'no' ? false : null;
+    const realAnswer = number % 2 === 0;
+    const yourAnswer = (answer === 'yes' || answer === 'no') ? answer === 'yes' : null;
 
     if (yourAnswer === null || yourAnswer !== realAnswer) {
       wrongAnswer(answer, realAnswer ? 'yes' : 'no');
