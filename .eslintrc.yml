@@ -8,6 +8,7 @@ env:
   es2020: true
 
 extends:
+  - 'airbnb'
   - 'airbnb-base'
   - 'plugin:jest/recommended'
 
