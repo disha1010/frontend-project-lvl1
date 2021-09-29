@@ -21,24 +21,14 @@ const even = () => {
     const number = Math.floor(Math.random() * 10 + 1);
     console.log(`Question: ${number}`);
     const answer = readlineSync.question('Your answer: ');
+    const realAnswer = number % 2 === 0 ? true : false;
+    const yourAnswer = answer === 'yes' ? true : answer === 'no' ? false : null;
 
-    if (answer === 'yes') {
-      if (number % 2 === 0) {
-        correctAnswer();
-      } else {
-        wrongAnswer('yes', 'no');
-        break;
-      }
-    } else if (answer === 'no') {
-      if (number % 2 !== 0) {
-        correctAnswer();
-      } else {
-        wrongAnswer('no', 'yes');
-        break;
-      }
-    } else {
-      wrongAnswer(answer, 'yes or no');
+    if (yourAnswer === null || yourAnswer !== realAnswer) {
+      wrongAnswer(answer, realAnswer ? 'yes' : 'no');
       break;
+    } else {
+      correctAnswer();
     }
   }
 
