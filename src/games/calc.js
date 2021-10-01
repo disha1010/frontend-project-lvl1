@@ -1,36 +1,55 @@
-import readlineSync from 'readline-sync';
-import { correctAnswer, wrongAnswer, getRandomExpression } from '../index.js';
-
-const operators = ['+', '-', '*'];
+import {
+  welcome,
+  correctAnswer,
+  wrongAnswer,
+  getRandomExpression,
+  questionAnswer,
+  congratulations,
+} from '../index.js';
 
 const calc = () => {
-  const number1 = getRandomExpression(100, 1);
-  const number2 = getRandomExpression(100, 1);
-  const operatorIndex = getRandomExpression(operators.length, 0);
-  const operator = operators[operatorIndex];
-  let realAnswer;
+  const name = welcome();
+  const gameStep = 3;
+  const operators = ['+', '-', '*'];
+  let step = 0;
 
-  console.log(`Question: ${number1} ${operator} ${number2}`);
-  const yourAnswer = readlineSync.question('Your answer: ');
+  console.log('What is the result of the expression?');
 
-  switch (operator) {
-    case '+':
-      realAnswer = number1 + number2;
+  while (step < gameStep) {
+    const number1 = getRandomExpression(100, 1);
+    const number2 = getRandomExpression(100, 1);
+    const operatorIndex = getRandomExpression(operators.length, 0);
+    const operator = operators[operatorIndex];
+    let realAnswer;
+
+    const userQA = questionAnswer(`${number1} ${operator} ${number2}`);
+
+    switch (operator) {
+      case '+':
+        realAnswer = number1 + number2;
+        break;
+      case '-':
+        realAnswer = number1 - number2;
+        break;
+      case '*':
+        realAnswer = number1 * number2;
+        break;
+      default:
+        break;
+    }
+
+    if (Number(userQA) !== realAnswer) {
+      wrongAnswer(userQA, realAnswer, name);
+      step = 0;
       break;
-    case '-':
-      realAnswer = number1 - number2;
-      break;
-    case '*':
-      realAnswer = number1 * number2;
-      break;
-    default:
-      break;
+    } else {
+      correctAnswer();
+      step += 1;
+    }
   }
 
-  if (Number(yourAnswer) !== realAnswer) {
-    wrongAnswer(yourAnswer, realAnswer);
-  } else {
-    correctAnswer();
+  if (step === gameStep) {
+    congratulations(name);
   }
 };
 

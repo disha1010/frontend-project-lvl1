@@ -1,17 +1,39 @@
-import readlineSync from 'readline-sync';
-import { correctAnswer, wrongAnswer, getRandomExpression } from '../index.js';
+import {
+  welcome,
+  correctAnswer,
+  wrongAnswer,
+  getRandomExpression,
+  questionAnswer,
+  congratulations,
+} from '../index.js';
 
 const even = () => {
-  const number = getRandomExpression(100, 1);
-  console.log(`Question: ${number}`);
-  const answer = readlineSync.question('Your answer: ');
-  const realAnswer = number % 2 === 0;
-  const yourAnswer = (answer === 'yes' || answer === 'no') ? answer === 'yes' : null;
+  const name = welcome();
+  const gameStep = 3;
+  let step = 0;
 
-  if (yourAnswer === null || yourAnswer !== realAnswer) {
-    wrongAnswer(answer, realAnswer ? 'yes' : 'no');
-  } else {
-    correctAnswer();
+  console.log('Answer "yes" if the number is even, otherwise answer "no".');
+
+  while (step < gameStep) {
+    const number = getRandomExpression(100, 1);
+
+    const userQA = questionAnswer(number);
+
+    const realAnswer = number % 2 === 0;
+    const yourAnswer = (userQA === 'yes' || userQA === 'no') ? userQA === 'yes' : null;
+
+    if (yourAnswer === null || yourAnswer !== realAnswer) {
+      wrongAnswer(userQA, realAnswer ? 'yes' : 'no', name);
+      step = 0;
+      break;
+    } else {
+      correctAnswer();
+      step += 1;
+    }
+  }
+
+  if (step === gameStep) {
+    congratulations(name);
   }
 };
 
