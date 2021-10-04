@@ -12,8 +12,8 @@ export const correctAnswer = () => console.log('Correct!');
 
 export const wrongAnswer = (wrong, correct, name) => console.log(`'${wrong}' is wrong answer ;(. Correct answer was '${correct}'.\nLet's try again, ${name}!`);
 
-export const getRandomExpression = (maxNumber, startNumber) => Math.floor(Math.random()
-  * maxNumber + startNumber);
+export const getRandomExpression = (maxNumber, minNumber) => Math.floor(Math.random()
+  * (maxNumber - minNumber)) + minNumber;
 
 export const questionAnswer = (str) => {
   console.log(`Question: ${str}`);
