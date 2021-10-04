@@ -45,6 +45,6 @@ const progression = () => {
   if (step === gameStep) {
     congratulations(name);
   }
-}
+};
 
 export default progression;
