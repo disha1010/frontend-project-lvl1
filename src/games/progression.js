@@ -30,7 +30,7 @@ const progression = () => {
 
     arithmeticProgression[numberPosition] = '..';
 
-    const userQA = questionAnswer(arithmeticProgression);
+    const userQA = questionAnswer(arithmeticProgression.join(' '));
 
     if (realAnswer !== Number(userQA)) {
       wrongAnswer(userQA, realAnswer, name);
